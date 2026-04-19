@@ -5,4 +5,54 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Dom2</name>
   <description>1VS1 Tactical Game inspired by dominions</description>
+  
+  <properties>
+    <javafx.version>21.0.7</javafx.version>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+</properties>
+
+<dependencies>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>21.0.7</version>
+        <classifier>win</classifier>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>21.0.7</version>
+        <classifier>win</classifier>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+       <version>21.0.7</version>
+        <classifier>win</classifier>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-base</artifactId>
+        <version>21.0.7</version>
+        <classifier>win</classifier>
+    </dependency>
+</dependencies>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.8</version>
+            <configuration>
+                <mainClass>moesgames.dom2.app.MainApp</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+  
 </project>
+
