@@ -1,6 +1,7 @@
 package moesgames.dom2.models.spell;
 
 import moesgames.dom2.localisation.LocalisationSpells;
+import moesgames.dom2.models.Damage;
 import moesgames.dom2.models.DomGame;
 import moesgames.dom2.models.MagicPath;
 import moesgames.dom2.models.TargetableDomEntity;
@@ -11,7 +12,7 @@ import moesgames.dom2.models.unit.DomUnit;
 public class FireBall extends Spell {
 
 	public FireBall() {
-		super(LocalisationSpells.fireball, 3, 1, 1, true, DamageType.fire);
+		super(LocalisationSpells.fireball, 2, 1, 1, true, DamageType.fire);
 		getMagic_paths().add(MagicPath.Fire, 1);
 	}
 
@@ -22,15 +23,11 @@ public class FireBall extends Spell {
 
 	@Override
 	public void apply(DomUnit caster, GameTarget target, DomGame game) {
-		int damage = getScalar(caster);
-		int roll = game.getDie().roll() + damage;
+		int damage_number = getScalar(caster);
+		Damage damage = new Damage(DamageType.fire, damage_number, this);
 		DomUnit unit = target.extractFirstUnit();
-		int target_roll = unit.roll_against(getType(), game.getDie());
-		if (roll > target_roll) {
-			game.kill(unit);
-		}
+		unit.takeDamage(damage);
 	}
-
 
 
 	@Override

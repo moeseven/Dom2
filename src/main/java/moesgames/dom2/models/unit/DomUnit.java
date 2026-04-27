@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import moesgames.dom2.localisation.LocalisationNameDescription;
+import moesgames.dom2.models.Damage;
+import moesgames.dom2.models.DamageSource;
 import moesgames.dom2.models.Die;
 import moesgames.dom2.models.MagicPath;
 import moesgames.dom2.models.MagicPaths;
+import moesgames.dom2.models.Resistances;
 import moesgames.dom2.models.TargetableDomEntity;
 
-public class DomUnit extends TargetableDomEntity{
+public class DomUnit extends TargetableDomEntity implements DamageSource{
 	
 	
 	
@@ -41,7 +44,7 @@ public class DomUnit extends TargetableDomEntity{
 		return preach;
 	}
 
-	public HashMap<DamageType, Integer> getResistances() {
+	public Resistances getResistances() {
 		return resistances;
 	}
 
@@ -51,12 +54,13 @@ public class DomUnit extends TargetableDomEntity{
 
 	private LocalisationNameDescription name;
 	private int strength;
+	private int stored_damage = 0;
 	private int gold_cost;
 	private DamageType damage_type;
 	
 	private int preach;
 	
-	private HashMap<DamageType, Integer> resistances = new HashMap<DamageType, Integer>();
+	private Resistances resistances;
 	private MagicPaths magic_paths = new MagicPaths();
 	
 	private LinkedList<UnitTag> tags;
@@ -73,24 +77,25 @@ public class DomUnit extends TargetableDomEntity{
 		this(name,strength,0);
 	}
 	
+	public void startTurn() {
+		stored_damage = 0;
+	}
 
-	public void addResistance(DamageType resistance_type, int r) {
-		if (resistances.containsKey(resistance_type)) {
-			resistances.put(resistance_type,resistances.get(resistance_type)+r);
-		}else {
-			resistances.put(resistance_type, r);
-		}
-	}
 	
-	public int roll_against(DamageType damageType, Die die) {
-		int roll = die.roll();
-		if (resistances.containsKey(damageType)) {
-			roll += resistances.get(damageType);
-		}
-		return roll + getStrength();
-	}
+
 
 	public void onDeath() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void takeDamage(Damage damage) {
+		stored_damage += damage.resist(resistances);
+		checkDeath();
+	}
+
+
+	private void checkDeath() {
 		// TODO Auto-generated method stub
 		
 	}

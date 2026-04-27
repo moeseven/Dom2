@@ -10,7 +10,6 @@ public class Soldier extends RecruitableDomUnit {
 	protected Soldier() {
 		super(LocalisationUnits.soldier, 2, 2);
 		getTags().add(UnitTag.living);
-		addResistance(DamageType.combat,1);
 	}
 
 
